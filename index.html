@@ -48,7 +48,50 @@
       <span></span><span></span><span></span>
     </button>
   </header>
+<style>
+ /* Make hero a positioning context */
+.hero {
+  position: relative;
+  text-align: center;
+  padding-top: 8rem; /* space from nav */
+  padding-bottom: 4rem;
+}
 
+/* Hero logo container */
+.hero-logo {
+  position: relative;
+  z-index: 2; /* make sure it's above canvas glow */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Actual logo image */
+.hero-logo img {
+  max-width: 220px;      /* limit size on large screens */
+  width: 40vw;           /* responsive scaling */
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255,140,0,0.6));
+  animation: floatLogo 4s ease-in-out infinite;
+}
+
+/* Simple float animation */
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* On smaller screens */
+@media (max-width: 600px) {
+  .hero-logo img {
+    max-width: 160px;
+    width: 60vw;
+  }
+}
+ 
+</style>
   <section class="hero" id="top">
     <div class="glow"></div>
     <div class="hero-logo">
