@@ -92,6 +92,83 @@
 }
  
 </style>
+<style>
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: rgba(13, 13, 15, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.nav .links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.menu {
+  display: none; /* hide on desktop */
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu span {
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+}
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem;
+  }
+
+  /* Hide nav links by default */
+  .nav .links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: rgba(13, 13, 15, 0.95);
+    padding: 1rem;
+    display: none;
+  }
+
+  /* Show menu button on mobile */
+  .menu {
+    display: flex;
+  }
+
+  /* When menu is active, show links */
+  .nav.active .links {
+    display: flex;
+  }
+
+  /* Make CTA buttons stack nicely */
+  .cta {
+    display: none; /* hide CTA on mobile nav top row */
+  }
+
+  .nav.active .cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+
+</style>
+
   <section class="hero" id="top">
     <div class="glow"></div>
     <div class="hero-logo">
@@ -314,5 +391,16 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const nav = document.querySelector(".nav");
+    const menuBtn = document.querySelector(".menu");
+
+    menuBtn.addEventListener("click", () => {
+    nav.classList.toggle("active");
+    });
+    });
+
+  </script>
 </body>
 </html>
