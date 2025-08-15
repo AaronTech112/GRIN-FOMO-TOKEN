@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d0d0f" />
+  <title>$FOMO — The Token You’ll Regret Missing</title>
+  <meta name="description" content="$FOMO is a scarcity machine — supply only goes down. Every trade burns. Every milestone detonates." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Libraries (client-side via CDN) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Favicons -->
+  <link rel="icon" href="assets/logo.png" type="image/png">
+</head>
+<body>
+  <!-- Animated background canvas -->
+  <canvas id="fire-canvas" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a href="#" class="brand">
+      <img src="assets/logo.png" alt="$FOMO" />
+      <span>$FOMO</span>
+    </a>
+    <nav class="links">
+      <a href="#how">How It Works</a>
+      <a href="#tracker">Live Burns</a>
+      <a href="#milestones">Milestones</a>
+      <a href="#lore">Lore</a>
+      <a href="#join">Join</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="cta">
+      <a class="btn outline" href="#tracker">View Burns Live</a>
+      <a class="btn primary" href="#buy">Buy $FOMO</a>
+    </div>
+    <button class="menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="glow"></div>
+    <div class="hero-inner">
+      <div class="badge">🔥 Deflationary • On‑chain burns</div>
+      <h1>The Token You’ll Regret Missing</h1>
+      <p class="sub">Every trade burns. Every milestone detonates.<br>
+      <strong>$FOMO</strong> is a scarcity machine — supply only goes down, and the earlier you join, the more you own.</p>
+      <div class="hero-cta">
+        <a class="btn primary huge" href="#buy">Buy $FOMO Now</a>
+        <a class="btn glass huge" href="#tracker">View Burns Live</a>
+      </div>
+      <div class="ticker">
+        <div class="ticker-card">
+          <span class="label">Live Supply</span>
+          <span id="liveSupply" class="value">–</span>
+        </div>
+        <div class="ticker-card">
+          <span class="label">Burned Today</span>
+          <span id="burnedToday" class="value">–</span>
+        </div>
+        <div class="ticker-card">
+          <span class="label">All‑time Burned</span>
+          <span id="burnedTotal" class="value">–</span>
+        </div>
+      </div>
+      <div class="hint">* Demo data for preview. Hook to your on‑chain indexer to go live.</div>
+    </div>
+    <div class="hero-logo-float">
+      <img src="assets/logo.png" alt="$FOMO flaming grin">
+    </div>
+  </section>
+
+  <section class="how" id="how">
+    <div class="section-head">
+      <h2>The FOMO Engine</h2>
+      <p>Simple. Brutal. Deflationary.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="icon flame"></div>
+        <h3>Every Trade Burns</h3>
+        <p>Small fee auto‑buybacks and burns tokens forever.</p>
+      </div>
+      <div class="step">
+        <div class="icon blast"></div>
+        <h3>Milestones = Mega Burns</h3>
+        <p>$1M, $5M, $10M MC → massive live burns.</p>
+      </div>
+      <div class="step">
+        <div class="icon diamond"></div>
+        <h3>Hold = Rarity</h3>
+        <p>The longer you hold, the rarer your bag gets.</p>
+      </div>
+    </div>
+    <div class="diagram">
+      <div class="shrink">
+        <span>Supply</span>
+        <div class="bars">
+          <div class="bar b1"></div>
+          <div class="bar b2"></div>
+          <div class="bar b3"></div>
+          <div class="bar b4"></div>
+        </div>
+      </div>
+      <div class="caption">Visualizing the grind down — supply shrinking over time.</div>
+    </div>
+  </section>
+
+  <section class="tracker" id="tracker">
+    <div class="section-head">
+      <h2>Live Burn Tracker</h2>
+      <p>100% on‑chain. Verify every burn.</p>
+    </div>
+    <div class="tracker-grid">
+      <div class="track-cards">
+        <div class="track-card">
+          <span>Tokens Burned Today</span>
+          <h3 id="statToday">—</h3>
+        </div>
+        <div class="track-card">
+          <span>Total Supply Remaining</span>
+          <h3 id="statSupply">—</h3>
+        </div>
+        <div class="track-card">
+          <span>Last Burn Event</span>
+          <h3 id="statLastBurn">—</h3>
+          <a id="txLink" target="_blank" rel="noopener" href="#">TX link</a>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="supplyChart" aria-label="Total Supply Over Time"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="milestones" id="milestones">
+    <div class="section-head">
+      <h2>Milestone Countdown</h2>
+      <p>Help us hit the next bonfire faster — every trade counts.</p>
+    </div>
+    <div class="milestone-grid">
+      <div class="cap-box">
+        <div class="cap-line">
+          <span>Current Market Cap</span>
+          <strong id="currentMC">$—</strong>
+        </div>
+        <div class="progress">
+          <div id="mcProgress" class="progress-bar"></div>
+        </div>
+        <div class="next">
+          <span>Next milestone at</span>
+          <strong id="nextMilestone">$1,000,000</strong>
+        </div>
+      </div>
+      <div class="burn-table">
+        <table>
+          <thead><tr><th>Market Cap</th><th>Burn Size</th></tr></thead>
+          <tbody>
+            <tr><td>$1M</td><td>2% of supply</td></tr>
+            <tr><td>$5M</td><td>5% of supply</td></tr>
+            <tr><td>$10M</td><td>10% of supply</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="lore" id="lore">
+    <div class="section-head">
+      <h2>The Legend of $FOMO</h2>
+    </div>
+    <p class="lore-text">
+      When the first spark hit the chain, the ledger blinked — and a grin lit the dark.
+      Every swap fed the flame. Every milestone, a detonation. Bags got lighter, holders got louder,
+      and those who waited… paid more. In $FOMO, you either buy early… or you buy expensive.
+    </p>
+  </section>
+
+  <section class="join" id="join">
+    <div class="section-head">
+      <h2>Join the Movement</h2>
+      <p>Plug into the firehose of updates and burns.</p>
+    </div>
+    <div class="join-grid">
+      <a class="pill" href="#" target="_blank" rel="noopener" aria-label="Telegram">Telegram</a>
+      <a class="pill" href="#" target="_blank" rel="noopener" aria-label="Twitter">X (Twitter)</a>
+      <a class="pill" href="#" target="_blank" rel="noopener" aria-label="DexTools">DexTools</a>
+      <a class="pill highlight" href="#buy" aria-label="Buy now">Buy Now</a>
+    </div>
+    <blockquote class="quote">
+      “I watched the supply melt while I hesitated. Not again.” — early buyer
+    </blockquote>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="section-head">
+      <h2>FAQ</h2>
+    </div>
+    <div class="faq-wrap">
+      <details open>
+        <summary>What’s $FOMO?</summary>
+        <p>A deflationary token where supply always shrinks through auto‑burns and milestone mega burns.</p>
+      </details>
+      <details>
+        <summary>How do I benefit from burns?</summary>
+        <p>As supply goes down, each token becomes rarer — potentially more valuable.</p>
+      </details>
+      <details>
+        <summary>Is the burn real?</summary>
+        <p>100% on‑chain. You can verify every burn.</p>
+      </details>
+      <details>
+        <summary>How can I help trigger a mega burn?</summary>
+        <p>Trade, share, and bring buyers in. Every trade moves us toward the milestone.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="cta-final" id="buy">
+    <div class="cta-card">
+      <h2>Don’t Watch $FOMO from the Sidelines</h2>
+      <p>The earlier you join, the more burns your bag survives. Every minute you wait, there’s less $FOMO in the world.</p>
+      <a class="btn primary huge" href="#" target="_blank" rel="noopener">Buy $FOMO Now</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <img src="assets/logo.png" alt="$FOMO logo">
+        <span>$FOMO</span>
+      </div>
+      <div class="foot-note">
+        <small>© <span id="year"></span> $FOMO. All burns verifiable on‑chain. This site is for educational and community purposes only and is not financial advice.</small>
+      </div>
+    </div>
+  </footer>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button id="closeModal" class="close" aria-label="Close">✕</button>
+      <h3 id="modalTitle">Live Burns</h3>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div>
+            <div class="track-card">
+              <span>Burns (last hour)</span>
+              <h3 id="lastHour">—</h3>
+            </div>
+            <div class="track-card">
+              <span>Avg Burn / Trade</span>
+              <h3 id="avgBurn">—</h3>
+            </div>
+          </div>
+          <div><canvas id="burnsMini"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
